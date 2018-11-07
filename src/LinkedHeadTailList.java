@@ -4,7 +4,17 @@ public class LinkedHeadTailList<T> implements HeadTailListInterface<T> {
 
   @Override
   public void addFront(T newEntry) {
-
+    if (newEntry != null) {
+      Node newNode = new Node(newEntry);
+      if (this.head == null) {
+        assert this.tail == null;
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        newNode.setNextNode(this.head);
+        this.head = newNode;
+      }
+    }
   }
 
   @Override
@@ -29,7 +39,19 @@ public class LinkedHeadTailList<T> implements HeadTailListInterface<T> {
 
   @Override
   public void display() {
-
+    Node currentNode = head;
+    String output = "[";
+    while (currentNode != null) {
+      output += currentNode.getData() + ", ";
+      currentNode = currentNode.getNextNode();
+    }
+    int index = output.lastIndexOf(",");
+    if (index < 1) {
+      output += "]";
+    } else {
+      output = output.substring(0, index) + "]";
+    }
+    System.out.println(output);
   }
 
   @Override
@@ -39,7 +61,7 @@ public class LinkedHeadTailList<T> implements HeadTailListInterface<T> {
 
   @Override
   public boolean isEmpty() {
-    return false;
+    return this.head == null && this.tail == null;
   }
 
   @Override
