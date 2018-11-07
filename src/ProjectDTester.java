@@ -133,9 +133,5 @@ public class ProjectDTester {
 		wordList.display();
 		System.out.println("[You, did, it!, Nice, job!]\thead=You\ttail=job!");
 		System.out.println();
-		
-		
-	
 	}
-
 }
