@@ -19,7 +19,17 @@ public class LinkedHeadTailList<T> implements HeadTailListInterface<T> {
 
   @Override
   public void addBack(T newEntry) {
-
+    if (newEntry != null) {
+      Node newNode = new Node(newEntry);
+      if (this.tail == null) {
+        assert this.head == null;
+        this.tail = newNode;
+        this.head = newNode;
+      } else {
+        tail.setNextNode(newNode);
+        this.tail = newNode;
+      }
+    }
   }
 
   @Override
@@ -34,6 +44,15 @@ public class LinkedHeadTailList<T> implements HeadTailListInterface<T> {
 
   @Override
   public T getEntry(int position) {
+    int count = -1;
+    Node currentNode = this.head;
+    while (count <= position && currentNode != null) {
+      count++;
+      if (count == position) {
+        return (T) currentNode.getData();
+      }
+      currentNode = currentNode.getNextNode();
+    }
     return null;
   }
 
@@ -56,7 +75,16 @@ public class LinkedHeadTailList<T> implements HeadTailListInterface<T> {
 
   @Override
   public int contains(T entry) {
-    return 0;
+    int count = -1;
+    Node currentNode = this.head;
+    while (currentNode != null) {
+      count++;
+      if (currentNode.getData().equals(entry)) {
+        return count;
+      }
+      currentNode = currentNode.getNextNode();
+    }
+    return -1;
   }
 
   @Override
@@ -66,12 +94,19 @@ public class LinkedHeadTailList<T> implements HeadTailListInterface<T> {
 
   @Override
   public int size() {
-    return 0;
+    int count = 0;
+    Node currentNode = this.head;
+    while (currentNode != null) {
+      count++;
+      currentNode = currentNode.getNextNode();
+    }
+    return count;
   }
 
   @Override
   public void clear() {
-
+    this.head = null;
+    this.tail = null;
   }
 
   private class Node<C> {
